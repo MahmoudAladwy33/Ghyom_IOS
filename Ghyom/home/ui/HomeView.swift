@@ -14,15 +14,16 @@ struct HomeView: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-            VStack(spacing: 60) {
-                CurrentWeatherSummary()
+            ScrollView(.vertical , showsIndicators: false) {
                 
-                HourlyForcast()
-                    
-                
-                Spacer()
+                VStack(spacing: 60) {
+                    CurrentWeatherSummary()
+                    HourlyForcast()
+                    DaysForcast()
+                    Spacer()
+                }
+                .padding(.top, 50)
             }
-            .padding(.top, 50)
             
             
         }
