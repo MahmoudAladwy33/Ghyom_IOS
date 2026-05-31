@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  WeatherDetailsView.swift
 //  Ghyom
 //
-//  Created by Al3dwy on 28/05/2026.
+//  Created by Al3dwy on 29/05/2026.
 //
 
 import SwiftUI
 
-struct HomeView: View {
+struct WeatherDetailsView: View {
     var body: some View {
         ZStack {
             Image(.appBackgroundNight)
@@ -15,22 +15,19 @@ struct HomeView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
             ScrollView(.vertical , showsIndicators: false) {
-                
-                VStack(spacing: 60) {
-                    CurrentWeatherSummary()
-                    HourlyForcast()
-                    DaysForcast()
+                VStack(spacing: 30) {
+                    WeatherDetailsHeader()
+                    WeatherDetailsGridView()
                     Spacer()
                 }
-                .padding(.top, 50)
+                .padding(.top, 80)
             }
             
             
         }
-        
     }
 }
 
 #Preview {
-    HomeView()
+    WeatherDetailsView()
 }
