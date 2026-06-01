@@ -22,7 +22,7 @@ struct HomeView: View {
                     DaysForcast()
                     Spacer()
                 }
-                .padding(.top, 50)
+               
             }
             
             

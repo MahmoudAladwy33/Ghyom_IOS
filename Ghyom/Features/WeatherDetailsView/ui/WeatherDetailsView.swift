@@ -9,7 +9,22 @@ import SwiftUI
 
 struct WeatherDetailsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Image(.appBackgroundNight)
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+            ScrollView(.vertical , showsIndicators: false) {
+                VStack(spacing: 30) {
+                    WeatherDetailsHeader()
+                    WeatherDetailsGridView()
+                    Spacer()
+                }
+                .padding(.top, 80)
+            }
+            
+            
+        }
     }
 }
 

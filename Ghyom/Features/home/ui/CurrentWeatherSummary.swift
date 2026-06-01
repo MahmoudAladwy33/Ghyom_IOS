@@ -27,7 +27,7 @@ struct CurrentWeatherSummary: View {
             Text("H: 25°    L: 18°")
                 .font(.system(size: 21, weight: .regular , design: .default))
                 .foregroundStyle(.white)
-        }.padding(.top , 30)
+        }.padding(.top , 80)
     }
 }
 
