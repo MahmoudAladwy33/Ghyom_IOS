@@ -10,22 +10,25 @@ import SwiftUI
 @main
 struct GhyomApp: App {
     @State var selectedTab = 0
+    
+    
     var body: some Scene {
        
         WindowGroup {
             TabView(selection: $selectedTab) {
                 HomeView()
                     .tabItem {
-                        Label("", systemImage: "house.fill")
+                        Image(systemName: "house.fill")
                     }
                     .tag(0)
                 
-                WeatherDetailsView()
+                HourlyForcast()
                     .tabItem {
-                        Label("", systemImage: "list.bullet")
+                        Image(systemName: "heart.fill")
                     }
                     .tag(1)
-            }
+                  
+            } 
         }
     }
 }
