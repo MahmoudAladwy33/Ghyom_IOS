@@ -18,7 +18,7 @@ struct HomeView: View {
                 
                 VStack(spacing: 60) {
                     CurrentWeatherSummary()
-                    HourlyForcast()
+                    WeatherDetailsGridView()
                     DaysForcast()
                     Spacer()
                 }
