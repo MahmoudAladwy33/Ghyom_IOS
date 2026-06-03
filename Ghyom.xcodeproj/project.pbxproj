@@ -7,9 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D1CEC292FCF9CB700C7F7CB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6D1CEC282FCF9CB700C7F7CB /* Alamofire */; };
-		6D1CEC2B2FCF9CB700C7F7CB /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 6D1CEC2A2FCF9CB700C7F7CB /* AlamofireDynamic */; };
+		6D2B51C92FD07B9C0077BC28 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6D2B51C82FD07B9C0077BC28 /* Alamofire */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6D2B51BE2FD076EF0077BC28 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6D5790EE2FC8D55F008EE20E /* Ghyom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ghyom.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,8 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D1CEC292FCF9CB700C7F7CB /* Alamofire in Frameworks */,
-				6D1CEC2B2FCF9CB700C7F7CB /* AlamofireDynamic in Frameworks */,
+				6D2B51C92FD07B9C0077BC28 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +73,7 @@
 				6D5790EA2FC8D55F008EE20E /* Sources */,
 				6D5790EB2FC8D55F008EE20E /* Frameworks */,
 				6D5790EC2FC8D55F008EE20E /* Resources */,
+				6D2B51BE2FD076EF0077BC28 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -72,8 +84,7 @@
 			);
 			name = Ghyom;
 			packageProductDependencies = (
-				6D1CEC282FCF9CB700C7F7CB /* Alamofire */,
-				6D1CEC2A2FCF9CB700C7F7CB /* AlamofireDynamic */,
+				6D2B51C82FD07B9C0077BC28 /* Alamofire */,
 			);
 			productName = Ghyom;
 			productReference = 6D5790EE2FC8D55F008EE20E /* Ghyom.app */;
@@ -104,7 +115,7 @@
 			mainGroup = 6D5790E52FC8D55F008EE20E;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				6D1CEC272FCF9CB700C7F7CB /* XCRemoteSwiftPackageReference "Alamofire" */,
+				6D2B51C72FD07B9C0077BC28 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6D5790EF2FC8D55F008EE20E /* Products */;
@@ -342,7 +353,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6D1CEC272FCF9CB700C7F7CB /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		6D2B51C72FD07B9C0077BC28 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -353,15 +364,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6D1CEC282FCF9CB700C7F7CB /* Alamofire */ = {
+		6D2B51C82FD07B9C0077BC28 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6D1CEC272FCF9CB700C7F7CB /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 6D2B51C72FD07B9C0077BC28 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		6D1CEC2A2FCF9CB700C7F7CB /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6D1CEC272FCF9CB700C7F7CB /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
