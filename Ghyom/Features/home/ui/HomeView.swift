@@ -6,27 +6,57 @@
 //
 
 import SwiftUI
-
+import CoreLocation
 struct HomeView: View {
     @State private var viewModel = HomeViewModel()
+    @State private var locationManager = LocationManager()
     
     var body: some View {
         ZStack {
-            
             Image(.appBackgroundNight)
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
             
-
-            if viewModel.isLoading {
+            
+            if locationManager.authorizationStatus == .denied || locationManager.authorizationStatus == .restricted {
                 
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    .scaleEffect(1.5)
+                ContentUnavailableView {
+                    Label("Location Access Required", systemImage: "location.slash")
+                } description: {
+                    Text("Ghyom needs location services enabled in Settings to fetch your local weather data.")
+                } actions: {
+                    Button(action: openAppSettings) {
+                        Text("Open Settings")
+                            .font(.headline)
+                            .bold()
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                    }
+                }
+                .foregroundStyle(.white)
+                
+            } else if viewModel.isLoading || locationManager.location == nil {
+                
+                
+                VStack(spacing: 15) {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(1.5)
+                    
+                    if locationManager.location == nil {
+                        Text("Locating your device...")
+                            .font(.subheadline)
+                            .foregroundStyle(.white.opacity(0.7))
+                    }
+                }
                 
             } else if let errorMessage = viewModel.errorMessage {
-              
+                
+                
                 VStack(spacing: 12) {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .font(.largeTitle)
@@ -37,6 +67,8 @@ struct HomeView: View {
                 .padding(.horizontal, 40)
                 
             } else if viewModel.weather != nil && viewModel.dayForecast != nil {
+                
+                
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 60) {
                         CurrentWeatherSummary(
@@ -51,7 +83,7 @@ struct HomeView: View {
                             humidity: viewModel.weather?.current?.humidity ?? 0,
                             windSpeed: viewModel.weather?.current?.windKph ?? 0.0,
                             visibility: viewModel.weather?.current?.visKM ?? 0.0,
-                            pressure: viewModel.weather?.current?.pressureIn ?? 0.0 ,
+                            pressure: viewModel.weather?.current?.pressureIn ?? 0.0,
                             sunrise: viewModel.dayForecast?.forecast?.forecastday.first?.astro.sunrise ?? "Unknown",
                             sunset: viewModel.dayForecast?.forecast?.forecastday.first?.astro.sunset ?? "Unknown"
                         )
@@ -61,14 +93,32 @@ struct HomeView: View {
                     }
                     .padding(.top, 20)
                 }
+                .refreshable {
+                    
+                    if let location = locationManager.location {
+                        await viewModel.fetchWeather(latitude: location.latitude, longitude: location.longitude)
+                    }
+                }
             }
         }
         .task {
-            await viewModel.fetchWeather(latitude: 30.0444, longitude: 31.2357)
+            
+            locationManager.startUpdatingLocation()
         }
+        .task {
+            locationManager.startUpdatingLocation()
+            while locationManager.location == nil {
+                try? await Task.sleep(for: .seconds(0.2))
+            }
+            
+            if let location = locationManager.location {
+                await viewModel.fetchWeather(latitude: location.latitude, longitude: location.longitude)
+            }
+        }
+        
+        
     }
 }
-
 //#Preview {
 //    HomeView()
 //}

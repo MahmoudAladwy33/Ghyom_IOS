@@ -30,18 +30,19 @@ struct DayForecastCurrent: Decodable , Identifiable {
     let windMph, windKph: Double?
     let windDegree: Int?
     let windDir: String?
-    let pressureMB: Int?
+    let pressureMB: Double?
     let pressureIn: Double?
-    let precipMm, precipIn, humidity, cloud: Int?
+    let precipMm, precipIn : Double?
+    let humidity, cloud: Int?
     let feelslikeC, feelslikeF, windchillC, windchillF: Double?
     let heatindexC, heatindexF, dewpointC, dewpointF: Double?
-    let visKM, visMiles: Int?
+    let visKM, visMiles: Double?
     let uv, gustMph, gustKph: Double?
     let willItRain, chanceOfRain, willItSnow, chanceOfSnow: Int?
     let shortRAD, diffRAD, dni, gti: Double?
     let timeEpoch: Int?
     let time: String?
-    let snowCM: Int?
+    let snowCM: Double?
 
     enum CodingKeys: String, CodingKey {
         case lastUpdatedEpoch = "last_updated_epoch"
@@ -128,8 +129,9 @@ struct Astro: Decodable {
 struct Day: Decodable {
     let maxtempC, maxtempF, mintempC, mintempF: Double?
     let avgtempC, avgtempF, maxwindMph, maxwindKph: Double?
-    let totalprecipMm, totalprecipIn, totalsnowCM, avgvisKM: Int?
-    let avgvisMiles, avghumidity, dailyWillItRain, dailyChanceOfRain: Int?
+    let totalprecipMm, totalprecipIn, totalsnowCM, avgvisKM: Double?
+    let avgvisMiles: Double?
+    let avghumidity, dailyWillItRain, dailyChanceOfRain: Int?
     let dailyWillItSnow, dailyChanceOfSnow: Int?
     let condition: Condition?
     let uv: Double?

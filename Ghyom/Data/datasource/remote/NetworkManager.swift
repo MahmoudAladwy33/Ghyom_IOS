@@ -19,7 +19,7 @@ class NetworkManager {
         let url = baseURL + ApiEndpoint.currentWeather.rawValue
         let parameters: [String: String] = [
             "key": apiKey,
-            "q": "\(30.0444),\(31.2357)",
+            "q": "\(latitude),\(longitude)",
             "lang": "en",
             "aqi": "no"
         ]
@@ -29,6 +29,7 @@ class NetworkManager {
                                    .value
             let response = try JSONDecoder().decode(CurrentWeatherResponse.self, from: data)
             print("NetworkManager: Successfully fetched current weather data. , Response: \(response)")
+            print ("Location: \(latitude), \(longitude)")
             return response
     }
     
@@ -38,7 +39,7 @@ class NetworkManager {
         let url = baseURL + ApiEndpoint.dayForecast.rawValue
         let parameters: [String: String] = [
             "key": apiKey,
-            "q": "\(30.0444),\(31.2357)",
+            "q": "\(latitude),\(longitude)",
             "days": "10",
             "lang": "en",
             "aqi": "no"
