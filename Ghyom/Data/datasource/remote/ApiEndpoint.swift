@@ -9,5 +9,6 @@ import Foundation
 
 enum ApiEndpoint: String {
     case currentWeather = "/current.json"
+    case dayForecast = "/forecast.json"
    
 }
