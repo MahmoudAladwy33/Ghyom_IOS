@@ -81,18 +81,8 @@ struct DayForecastCurrent: Decodable {
     }
 }
 
-// MARK: - Condition
 
 
-enum Icon: String, Decodable {
-    case cdnWeatherapiCOMWeather64X64Day113PNG = "//cdn.weatherapi.com/weather/64x64/day/113.png"
-    case cdnWeatherapiCOMWeather64X64Night113PNG = "//cdn.weatherapi.com/weather/64x64/night/113.png"
-}
-
-enum Text: String, Decodable {
-    case clear = "Clear"
-    case sunny = "Sunny"
-}
 
 // MARK: - Forecast
 struct Forecast: Decodable {
@@ -100,7 +90,8 @@ struct Forecast: Decodable {
 }
 
 // MARK: - Forecastday
-struct Forecastday: Decodable {
+struct Forecastday: Decodable , Identifiable{
+    var id: Int { dateEpoch ?? 0 }
     let date: String?
     let dateEpoch: Int?
     let day: Day?
