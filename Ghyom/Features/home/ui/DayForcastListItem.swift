@@ -9,29 +9,34 @@ import SwiftUI
 
 struct DayForcastListItem: View {
     @State private var showSheet = false
+    var dayForecast : Forecastday
+
     var body: some View {
         VStack{
             HStack{
-                Text("Today")
-                    .font(.system(size: 22, weight: .regular , design: .default , ))
+                Text(getDayName(from: dayForecast.date ?? "") )
+                    .font(.system(size: 18, weight: .regular , design: .default))
                     .foregroundStyle(.white)
-                    .padding(.trailing , 20)
+                    .frame(width: 100, alignment: .leading)
                 
-                Image(.weatherState)
-                    .resizable()
+                Spacer(minLength: 0)
+                AsyncImage(url: URL(string: "https:\(dayForecast.day?.condition?.icon ?? "")"))
                     .scaledToFit()
                     .frame(width: 28, height: 26)
-                Text("20°")
-                    .font(.system(size: 22, weight: .regular , design: .default , ))
+                Spacer(minLength: 10)
+                
+                Text("\(dayForecast.day?.mintempC  ?? 0 ,  specifier: "%.0f")°")
+                    .font(.system(size: 18, weight: .regular , design: .default))
                     .foregroundStyle(.gray)
-                    .padding(.leading , 8 )
+                    .frame(width: 35, alignment: .trailing)
                 
-                TemperatureRangeBar(minTemp: 15, maxTemp: 29, currentTemp: 21)
+                TemperatureRangeBar(minTemp: dayForecast.day?.mintempC ?? 0, maxTemp: dayForecast.day?.maxtempC ?? 0, currentTemp: dayForecast.day?.avgtempC ?? 0)
+                    .padding(.horizontal, 4)
                 
-                Text("20°")
-                    .font(.system(size: 22, weight: .regular , design: .default , ))
+                Text("\(dayForecast.day?.maxtempC ?? 0 ,  specifier: "%.0f")°")
+                    .font(.system(size: 18, weight: .regular , design: .default ))
                     .foregroundStyle(.white)
-                    .padding(.leading , 8 )
+                    .frame(width: 35, alignment: .trailing)
             }
             .onTapGesture {
                 showSheet = true
@@ -47,10 +52,10 @@ struct DayForcastListItem: View {
                             .ignoresSafeArea()
                     }
             }
-        } .padding(.horizontal, 20)
+        } .padding(.horizontal, 8)
     }
 }
 
-#Preview {
-    DayForcastListItem()
-}
+//#Preview {
+//    DayForcastListItem()
+//}
