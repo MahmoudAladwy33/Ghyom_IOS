@@ -17,7 +17,11 @@ struct DayForecastResponse: Decodable {
 }
 
 // MARK: - Current
-struct DayForecastCurrent: Decodable {
+struct DayForecastCurrent: Decodable , Identifiable {
+    var id: Int {
+            if let timeEpoch = timeEpoch { return timeEpoch }
+            return lastUpdatedEpoch ?? 0
+        }
     let lastUpdatedEpoch: Int?
     let lastUpdated: String?
     let tempC, tempF: Double?

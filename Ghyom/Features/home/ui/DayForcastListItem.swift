@@ -42,7 +42,9 @@ struct DayForcastListItem: View {
                 showSheet = true
             }
             .sheet(isPresented: $showSheet) {
-                HourlyForcast()
+                HourlyForcast(
+                    hourList: dayForecast.hour
+                )
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
                     .presentationBackground {

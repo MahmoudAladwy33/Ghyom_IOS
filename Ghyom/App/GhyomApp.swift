@@ -22,11 +22,11 @@ struct GhyomApp: App {
                     }
                     .tag(0)
                 
-                HourlyForcast()
-                    .tabItem {
-                        Image(systemName: "heart.fill")
-                    }
-                    .tag(1)
+//                HourlyForcast()
+//                    .tabItem {
+//                        Image(systemName: "heart.fill")
+//                    }
+//                    .tag(1)
                   
             } 
         }

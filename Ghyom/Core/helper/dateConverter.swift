@@ -25,3 +25,20 @@ func getDayName(from dateString: String) -> String {
     
     return outputFormatter.string(from: date)
 }
+
+
+
+func getHourName(from timeString: String) -> String {
+    let inputFormatter = DateFormatter()
+    inputFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+    
+    guard let date = inputFormatter.date(from: timeString) else {
+        return timeString
+    }
+    
+    let outputFormatter = DateFormatter()
+    outputFormatter.dateFormat = "h a"
+    
+    
+    return outputFormatter.string(from: date)
+}
