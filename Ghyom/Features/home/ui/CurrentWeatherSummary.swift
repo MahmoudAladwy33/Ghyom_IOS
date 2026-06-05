@@ -8,29 +8,34 @@
 import SwiftUI
 
 struct CurrentWeatherSummary: View {
+    @State var cityName : String
+    @State var currentTemperature : Double
+    @State var weatherCondition : String
+    @State var highTemperature : Double
+    @State var lowTemperature : Double
     var body: some View {
         VStack(spacing: 5) {
-            Text("SouthAfrica")
+            Text(cityName)
                 .font(.system(size: 40, weight: .regular , design: .default , ))
                 .tracking(3)
                 .foregroundStyle(.white)
                
               
-            Text("20°")
+            Text("\(Int(currentTemperature))°")
                 .font(.system(size: 102,weight: .thin ,  design: .default))
                 .foregroundStyle(.white)
             
-            Text("Partly Cloudy")
+            Text(weatherCondition)
                 .font(.system(size: 24, weight: .regular , design: .default))
                 .foregroundStyle(.white)
             
-            Text("H: 25°    L: 18°")
+            Text("H: \(Int(highTemperature))°      L: \(Int(lowTemperature))°")
                 .font(.system(size: 21, weight: .regular , design: .default))
                 .foregroundStyle(.white)
         }.padding(.top , 80)
     }
 }
 
-#Preview {
-    CurrentWeatherSummary()
-}
+//#Preview {
+//    CurrentWeatherSummary()
+//}

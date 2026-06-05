@@ -13,7 +13,7 @@ struct CurrentWeatherResponse: Decodable, Sendable {
 }
 
 // MARK: - Current
-struct CurrentWeather: Decodable, Sendable{
+struct CurrentWeather: Decodable, Sendable {
     let lastUpdatedEpoch: Int?
     let lastUpdated: String?
     let tempC, tempF: Double?
@@ -22,12 +22,13 @@ struct CurrentWeather: Decodable, Sendable{
     let windMph, windKph: Double?
     let windDegree: Int?
     let windDir: String?
-    let pressureMB: Int?
+    let pressureMB: Double? 
     let pressureIn: Double?
-    let precipMm, precipIn, humidity, cloud: Int?
+    let precipMm, precipIn: Double?
+    let humidity, cloud: Int?
     let feelslikeC, feelslikeF, windchillC, windchillF: Double?
-    let heatindexC, heatindexF, dewpointC: Double?
-    let dewpointF, visKM, visMiles: Int?
+    let heatindexC, heatindexF, dewpointC, dewpointF: Double?
+    let visKM, visMiles: Double?
     let uv, gustMph, gustKph: Double?
     let willItRain, chanceOfRain, willItSnow, chanceOfSnow: Int?
     let shortRAD, diffRAD, dni, gti: Double?

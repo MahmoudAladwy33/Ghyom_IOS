@@ -37,6 +37,7 @@ struct DaysForcast: View {
                 .stroke(.white.opacity(0.15), lineWidth: 1)
         )
         .padding(.horizontal, 8)
+        .safeAreaPadding(.bottom, 80)
     }
 }
 
