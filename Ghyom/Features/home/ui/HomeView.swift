@@ -36,7 +36,7 @@ struct HomeView: View {
                 .foregroundColor(.red)
                 .padding(.horizontal, 40)
                 
-            } else if viewModel.weather != nil {
+            } else if viewModel.weather != nil && viewModel.dayForecast != nil {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 60) {
                         CurrentWeatherSummary(
@@ -51,16 +51,20 @@ struct HomeView: View {
                             humidity: viewModel.weather?.current?.humidity ?? 0,
                             windSpeed: viewModel.weather?.current?.windKph ?? 0.0,
                             visibility: viewModel.weather?.current?.visKM ?? 0.0,
-                            pressure: viewModel.weather?.current?.pressureIn ?? 0.0
+                            pressure: viewModel.weather?.current?.pressureIn ?? 0.0 ,
+                            sunrise: viewModel.dayForecast?.forecast?.forecastday.first?.astro.sunrise ?? "Unknown",
+                            sunset: viewModel.dayForecast?.forecast?.forecastday.first?.astro.sunset ?? "Unknown"
                         )
-                        DaysForcast()
+                        DaysForcast(
+                            dayForecastList: viewModel.dayForecast?.forecast?.forecastday ?? []
+                        )
                     }
                     .padding(.top, 20)
                 }
             }
         }
         .task {
-            await viewModel.fetchCurrentWeather(latitude: 30.0444, longitude: 31.2357)
+            await viewModel.fetchWeather(latitude: 30.0444, longitude: 31.2357)
         }
     }
 }

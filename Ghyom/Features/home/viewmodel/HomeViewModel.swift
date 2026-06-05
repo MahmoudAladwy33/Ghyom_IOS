@@ -16,16 +16,19 @@ class HomeViewModel {
     
    
     var weather: CurrentWeatherResponse?
+    var dayForecast: DayForecastResponse?
     var isLoading = false
     var errorMessage: String?
     
-    func fetchCurrentWeather(latitude: Double, longitude: Double) async {
+    func fetchWeather(latitude: Double, longitude: Double) async {
         isLoading = true
         errorMessage = nil
         
         do {
-            let response = try await weatherRepo.getCurrentWeather(latitude: latitude, longitude: longitude)
-            self.weather = response
+            let currentWeatherResponse = try await weatherRepo.getCurrentWeather(latitude: latitude, longitude: longitude)
+            let dayForecastResponse = try await weatherRepo.getDayForecast(latitude: latitude, longitude: longitude)
+            self.weather = currentWeatherResponse
+            self.dayForecast = dayForecastResponse
             isLoading = false
         } catch {
             self.errorMessage = error.localizedDescription
@@ -33,4 +36,6 @@ class HomeViewModel {
             print("Error: \(error.localizedDescription)")
         }
     }
+    
+    
 }

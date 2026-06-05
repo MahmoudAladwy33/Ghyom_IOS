@@ -8,23 +8,26 @@
 import SwiftUI
 
 struct HourlyForcast: View {
+    var hourList : [DayForecastCurrent]
     var body: some View {
         ScrollView(.vertical , showsIndicators: false) {
             VStack(spacing: 25){
                 HStack{
                     Text("Hourly Forecast")
-                        .font(.system(size: 18, weight: .bold , design: .default , ))
+                        .font(.system(size: 18, weight: .bold , design: .default ))
                         .foregroundStyle(.white)
                     Spacer()
                 }.padding(.horizontal, 20)
                 
                 
                 LazyVStack(spacing: 22) {
-                    ForEach(0..<10) { _ in
-                        HourlyForcastListItem()
+                    ForEach(hourList) { singleHour in
+                        HourlyForcastListItem(
+                            hourlyForcast: singleHour
+                        )
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 50)
                 
             }.padding(.vertical, 16)
                 .background(
@@ -40,6 +43,6 @@ struct HourlyForcast: View {
     }
 }
 
-#Preview {
-    HourlyForcast()
-}
+//#Preview {
+//    HourlyForcast()
+//}

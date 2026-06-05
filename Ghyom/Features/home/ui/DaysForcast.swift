@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DaysForcast: View {
+  var dayForecastList: [Forecastday]
     var body: some View {
         VStack(spacing: 25) {
             HStack {
@@ -21,8 +22,8 @@ struct DaysForcast: View {
             
             
             LazyVStack(spacing: 22) {
-                ForEach(0..<10) { _ in
-                    DayForcastListItem()
+                ForEach(dayForecastList) { singleDay in
+                    DayForcastListItem(dayForecast: singleDay)
                 }
             }
             .padding(.horizontal, 20)
@@ -42,6 +43,6 @@ struct DaysForcast: View {
 }
 
 
-#Preview {
-    DaysForcast()
-}
+//#Preview {
+//    DaysForcast()
+//}
