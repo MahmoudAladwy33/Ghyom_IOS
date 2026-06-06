@@ -10,24 +10,23 @@ import SwiftUI
 @main
 struct GhyomApp: App {
     @State var selectedTab = 0
-    
+    @State var selectedCity: SavedCity? = nil
     
     var body: some Scene {
        
         WindowGroup {
             TabView(selection: $selectedTab) {
-                HomeView()
+                HomeView(selectedCity: $selectedCity)
                     .tabItem {
                         Image(systemName: "house.fill")
                     }
                     .tag(0)
                 
-//                HourlyForcast()
-//                    .tabItem {
-//                        Image(systemName: "heart.fill")
-//                    }
-//                    .tag(1)
-                  
+                FavView(selectedTab: $selectedTab, selectedCity: $selectedCity)
+                    .tabItem {
+                        Image(systemName: "star.fill")
+                    }
+                    .tag(1)
             } 
         }
     }

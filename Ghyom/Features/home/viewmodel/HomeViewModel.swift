@@ -12,7 +12,7 @@ import Observation
 @MainActor
 class HomeViewModel {
     
-    private let weatherRepo = WeatherRepo()
+    private let weatherRepo = WeatherRepo(storageService: SwiftDataWeatherService())
     
    
     var weather: CurrentWeatherResponse?
@@ -20,6 +20,21 @@ class HomeViewModel {
     var searchResults: [CitySearchResponse]?
     var isLoading = false
     var errorMessage: String?
+    
+    init() {
+    }
+    
+    
+        func addCityToFavorites(_ cityResponse: CitySearchResponse) {
+            let newCity = SavedCity(city: cityResponse)
+            do {
+                try weatherRepo.saveCityToLocal(newCity)
+            } catch {
+                self.errorMessage = "Could not save \(cityResponse.name) to favorites."
+            }
+            print("Added \(cityResponse.name) to favorites")
+        }
+    
     
     func fetchWeather(latitude: Double, longitude: Double) async {
         isLoading = true

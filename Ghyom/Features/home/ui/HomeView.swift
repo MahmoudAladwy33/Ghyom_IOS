@@ -11,7 +11,9 @@ struct HomeView: View {
     @State private var viewModel = HomeViewModel()
     @State private var locationManager = LocationManager()
     @State private var isPresentedSearch = false
-    @State private var searchText = ""
+    @Binding var selectedCity: SavedCity?
+   
+    
     
     var body: some View {
         ZStack {
@@ -96,7 +98,6 @@ struct HomeView: View {
                     .padding(.top, 20)
                 }
                 .refreshable {
-                    
                     if let location = locationManager.location {
                         await viewModel.fetchWeather(latitude: location.latitude, longitude: location.longitude)
                     }
@@ -104,69 +105,44 @@ struct HomeView: View {
             }
         }
         .overlay(alignment: .topLeading) {
-                    if viewModel.weather != nil {
-                        Button {
-                            isPresentedSearch.toggle()
-                        } label: {
-                            Image(systemName: "plus")
-                                .font(.title2)
-                                .bold()
-                                .foregroundColor(.white)
-                                .padding(12)
-                                
-                        }
-                        .padding(.trailing, 20)
-                        .padding(.top, 60)
-                    }
+            if viewModel.weather != nil {
+                Button {
+                    isPresentedSearch.toggle()
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(.white)
+                        .padding(12)
+                    
                 }
-                .sheet(isPresented: $isPresentedSearch) {
-                    NavigationStack {
-                        VStack {
-                            if viewModel.isLoading {
-                                Spacer()
-                                ProgressView("Searching locations...")
-                                Spacer()
-                            } else {
-                                List(viewModel.searchResults ?? [], id: \.id) { result in
-                                    Text(result.name)
-                                }
-                                .listStyle(.plain)
-                            }
-                        }
-                        .navigationTitle("Find Location")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a city...")
-                        .onChange(of: searchText) { oldValue, newValue in
-                            let cleanedQuery = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                            
-                            guard !cleanedQuery.isEmpty else {
-                                viewModel.searchResults = nil
-                                return
-                            }
-                            
-                            Task {
-                                try? await Task.sleep(for: .seconds(0.5))
-                                if searchText == newValue {
-                                    await viewModel.getCitySearsh(cityName: cleanedQuery)
-                                }
-                            }
-                        }
-                        .toolbar {
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Button("Close") { isPresentedSearch = false }
-                            }
-                        }
-                    }
-                    .presentationDetents([.medium, .large])
-                }
-        .task {
-            locationManager.startUpdatingLocation()
-            while locationManager.location == nil {
-                try? await Task.sleep(for: .seconds(0.2))
+                .padding(.trailing, 20)
+                .padding(.top, 60)
             }
-            
-            if let location = locationManager.location {
-                await viewModel.fetchWeather(latitude: location.latitude, longitude: location.longitude)
+        }
+        .sheet(isPresented: $isPresentedSearch) {
+            CitySearchView(viewModel: viewModel, isPresented: $isPresentedSearch)
+                .presentationDetents([.medium, .large])
+        }
+        .task {
+            if let city = selectedCity {
+                await viewModel.fetchWeather(latitude: city.latitude, longitude: city.longitude)
+            } else {
+                locationManager.startUpdatingLocation()
+                while locationManager.location == nil {
+                    try? await Task.sleep(for: .seconds(0.2))
+                }
+                
+                if let location = locationManager.location {
+                    await viewModel.fetchWeather(latitude: location.latitude, longitude: location.longitude)
+                }
+            }
+        }
+        .onChange(of: selectedCity) { _, newCity in
+            if let city = newCity {
+                Task {
+                    await viewModel.fetchWeather(latitude: city.latitude, longitude: city.longitude)
+                }
             }
         }
         
