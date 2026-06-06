@@ -17,6 +17,7 @@ class HomeViewModel {
    
     var weather: CurrentWeatherResponse?
     var dayForecast: DayForecastResponse?
+    var searchResults: [CitySearchResponse]?
     var isLoading = false
     var errorMessage: String?
     
@@ -37,5 +38,20 @@ class HomeViewModel {
         }
     }
     
+    
+    func getCitySearsh(cityName : String) async {
+        isLoading = true
+        errorMessage = nil
+        do {
+            let searchResponse = try await weatherRepo.getCitySearch(cityName: cityName)
+            self.searchResults = searchResponse
+            isLoading = false
+        } catch {
+            self.errorMessage = error.localizedDescription
+            isLoading = false
+            print("Error: \(error.localizedDescription)")
+        }
+    }
+
     
 }

@@ -10,6 +10,8 @@ import CoreLocation
 struct HomeView: View {
     @State private var viewModel = HomeViewModel()
     @State private var locationManager = LocationManager()
+    @State private var isPresentedSearch = false
+    @State private var searchText = ""
     
     var body: some View {
         ZStack {
@@ -101,10 +103,62 @@ struct HomeView: View {
                 }
             }
         }
-        .task {
-            
-            locationManager.startUpdatingLocation()
-        }
+        .overlay(alignment: .topLeading) {
+                    if viewModel.weather != nil {
+                        Button {
+                            isPresentedSearch.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor(.white)
+                                .padding(12)
+                                
+                        }
+                        .padding(.trailing, 20)
+                        .padding(.top, 60)
+                    }
+                }
+                .sheet(isPresented: $isPresentedSearch) {
+                    NavigationStack {
+                        VStack {
+                            if viewModel.isLoading {
+                                Spacer()
+                                ProgressView("Searching locations...")
+                                Spacer()
+                            } else {
+                                List(viewModel.searchResults ?? [], id: \.id) { result in
+                                    Text(result.name)
+                                }
+                                .listStyle(.plain)
+                            }
+                        }
+                        .navigationTitle("Find Location")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a city...")
+                        .onChange(of: searchText) { oldValue, newValue in
+                            let cleanedQuery = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                            
+                            guard !cleanedQuery.isEmpty else {
+                                viewModel.searchResults = nil
+                                return
+                            }
+                            
+                            Task {
+                                try? await Task.sleep(for: .seconds(0.5))
+                                if searchText == newValue {
+                                    await viewModel.getCitySearsh(cityName: cleanedQuery)
+                                }
+                            }
+                        }
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button("Close") { isPresentedSearch = false }
+                            }
+                        }
+                    }
+                    .presentationDetents([.medium, .large])
+                }
         .task {
             locationManager.startUpdatingLocation()
             while locationManager.location == nil {
