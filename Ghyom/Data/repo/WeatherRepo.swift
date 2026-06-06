@@ -18,4 +18,9 @@ class WeatherRepo {
     func getDayForecast(latitude: Double, longitude: Double) async throws -> DayForecastResponse {
         return try await shared.getDayForecast(latitude: latitude, longitude: longitude)
     }
+    
+    
+    func getCitySearch(cityName: String) async throws -> [CitySearchResponse]{
+        return try await shared.getCitySearch(cityName: cityName)
+    }
 }

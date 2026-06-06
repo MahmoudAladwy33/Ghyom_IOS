@@ -54,5 +54,22 @@ class NetworkManager {
     }
     
     
+    func getCitySearch(cityName : String) async throws -> [CitySearchResponse] {
+        
+        let url = baseURL + ApiEndpoint.citySearch.rawValue
+        let parameters: [String: String] = [
+            "key": apiKey,
+            "q": "\(cityName)",
+        ]
+        
+        let data = try await AF.request(url, method: .get, parameters: parameters)
+                                   .serializingData()
+                                   .value
+        let response = try JSONDecoder().decode([CitySearchResponse].self, from: data)
+            return response
+    }
+    
+    
+    
     
 }
