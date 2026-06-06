@@ -20,7 +20,7 @@ struct HourlyForcast: View {
                 }.padding(.horizontal, 20)
                 
                 
-                LazyVStack(spacing: 22) {
+                LazyVStack(spacing: 26) {
                     ForEach(hourList) { singleHour in
                         HourlyForcastListItem(
                             hourlyForcast: singleHour

@@ -21,7 +21,7 @@ struct DaysForcast: View {
             .padding(.horizontal, 20)
             
             
-            LazyVStack(spacing: 22) {
+            LazyVStack(spacing: 26) {
                 ForEach(dayForecastList) { singleDay in
                     DayForcastListItem(dayForecast: singleDay)
                 }
