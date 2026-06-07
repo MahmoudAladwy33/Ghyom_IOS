@@ -11,23 +11,25 @@ import SwiftUI
 struct GhyomApp: App {
     @State var selectedTab = 0
     @State var selectedCity: SavedCity? = nil
+    @State var isDay: Bool = false
     
     var body: some Scene {
        
         WindowGroup {
             TabView(selection: $selectedTab) {
-                HomeView(selectedCity: $selectedCity)
+                HomeView(selectedCity: $selectedCity, isDay: $isDay)
                     .tabItem {
                         Image(systemName: "house.fill")
                     }
                     .tag(0)
                 
-                FavView(selectedTab: $selectedTab, selectedCity: $selectedCity)
+                FavView(selectedTab: $selectedTab, selectedCity: $selectedCity, isDay: $isDay)
                     .tabItem {
                         Image(systemName: "star.fill")
                     }
                     .tag(1)
-            } 
+            }
+            .preferredColorScheme(isDay ? .light : .dark)
         }
     }
 }
