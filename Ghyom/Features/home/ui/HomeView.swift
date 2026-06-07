@@ -12,12 +12,12 @@ struct HomeView: View {
     @State private var locationManager = LocationManager()
     @State private var isPresentedSearch = false
     @Binding var selectedCity: SavedCity?
-   
+    @Binding var isDay: Bool
     
     
     var body: some View {
         ZStack {
-            Image(.appBackgroundNight)
+            Image(isDay ? .appBackgroundMorning : .appBackgroundNight)
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
@@ -41,20 +41,20 @@ struct HomeView: View {
                             .cornerRadius(10)
                     }
                 }
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
                 
             } else if viewModel.isLoading || locationManager.location == nil {
                 
                 
                 VStack(spacing: 15) {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .progressViewStyle(CircularProgressViewStyle(tint: .primary))
                         .scaleEffect(1.5)
                     
                     if locationManager.location == nil {
                         Text("Locating your device...")
                             .font(.subheadline)
-                            .foregroundStyle(.white.opacity(0.7))
+                            .foregroundStyle(.primary.opacity(0.7))
                     }
                 }
                 
@@ -101,6 +101,7 @@ struct HomeView: View {
                     if let location = locationManager.location {
                         await viewModel.fetchWeather(latitude: location.latitude, longitude: location.longitude)
                     }
+                    selectedCity = nil
                 }
             }
         }
@@ -112,7 +113,7 @@ struct HomeView: View {
                     Image(systemName: "plus")
                         .font(.title2)
                         .bold()
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .padding(12)
                     
                 }
@@ -143,6 +144,11 @@ struct HomeView: View {
                 Task {
                     await viewModel.fetchWeather(latitude: city.latitude, longitude: city.longitude)
                 }
+            }
+        }
+        .onChange(of: viewModel.weather?.current?.isDay) { _, newIsDay in
+            if let newIsDay = newIsDay {
+                isDay = (newIsDay == 1)
             }
         }
         

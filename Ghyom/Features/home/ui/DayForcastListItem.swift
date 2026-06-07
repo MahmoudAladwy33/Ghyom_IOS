@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DayForcastListItem: View {
     @State private var showSheet = false
+    @Environment(\.colorScheme) var colorScheme
     var dayForecast : Forecastday
 
     var body: some View {
@@ -16,7 +17,7 @@ struct DayForcastListItem: View {
             HStack{
                 Text(getDayName(from: dayForecast.date ?? "") )
                     .font(.system(size: 18, weight: .regular , design: .default))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .frame(width: 100, alignment: .leading)
                 
                 Spacer(minLength: 0)
@@ -35,7 +36,7 @@ struct DayForcastListItem: View {
                 
                 Text("\(dayForecast.day?.maxtempC ?? 0 ,  specifier: "%.0f")°")
                     .font(.system(size: 18, weight: .regular , design: .default ))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .frame(width: 35, alignment: .trailing)
             }
             .onTapGesture {
@@ -48,7 +49,7 @@ struct DayForcastListItem: View {
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
                     .presentationBackground {
-                        Image(.hourlyForcastBackground)
+                        Image(colorScheme == .light ? .hourlyForcastBackgroundMorning : .hourlyForcastBackground)
                             .resizable()
                             .scaledToFill()
                             .ignoresSafeArea()

@@ -154,7 +154,7 @@ struct WeatherDetailsGridView: View {
             }
         }
         .padding(.horizontal, 16)
-        .foregroundColor(.white)
+        .foregroundColor(.primary)
         
     }
 }

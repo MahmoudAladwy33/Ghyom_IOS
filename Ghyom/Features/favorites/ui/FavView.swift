@@ -9,23 +9,34 @@ struct FavView: View {
     @State private var viewModel = FavViewModel()
     @Binding var selectedTab: Int
     @Binding var selectedCity: SavedCity?
+    @Binding var isDay: Bool
     
     var body: some View {
         NavigationStack {
             ZStack {
-                Image(.appBackgroundNight)
+                Image(isDay ? .appBackgroundMorning : .appBackgroundNight)
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
                 
                 VStack {
+                    HStack {
+                        Text("Cities History")
+                            .font(.largeTitle)
+                            .bold()
+                            .foregroundStyle(.primary)
+                        
+                    }
+                    .padding(.horizontal, 20)
+                    .safeAreaPadding(.top, 75)
+                    
                     if viewModel.savedCities.isEmpty {
                         ContentUnavailableView {
                             Label("No Favorites", systemImage: "star.slash")
                         } description: {
                             Text("You haven't added any cities to your favorites yet.")
                         }
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.primary)
                     } else {
                         List {
                             ForEach(viewModel.savedCities) { city in
@@ -33,14 +44,14 @@ struct FavView: View {
                                     Text(city.name)
                                         .font(.title3)
                                         .bold()
-                                        .foregroundStyle(.white)
+                                        .foregroundStyle(.primary)
                                     Spacer()
                                     Image(systemName: "chevron.right")
-                                        .foregroundStyle(.white.opacity(0.5))
+                                        .foregroundStyle(.primary.opacity(0.5))
                                 }
                                 .padding(.vertical, 8)
-                                .listRowBackground(Color.white.opacity(0.1))
-                                .listRowSeparatorTint(.white.opacity(0.3))
+                                .listRowBackground(Color.primary.opacity(0.1))
+                                .listRowSeparatorTint(.primary.opacity(0.3))
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     selectedCity = city
@@ -51,14 +62,10 @@ struct FavView: View {
                         }
                         .scrollContentBackground(.hidden)
                         .listStyle(.plain)
-                        .safeAreaPadding(.top, 60)
+                        .safeAreaPadding(.top, 20)
                     }
                 }
             }
-            .navigationTitle("Favorites")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
             .onAppear {
                 viewModel.loadSavedCities()
             }
