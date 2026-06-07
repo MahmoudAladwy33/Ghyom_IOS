@@ -13,11 +13,11 @@ struct WeatherDetailsHeader: View {
             Text("SouthAfrica")
                 .font(.system(size: 40, weight: .regular , design: .default , ))
                 .tracking(3)
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
             
             Text("20° | Partly Cloudy")
                 .font(.system(size: 22,  design: .default))
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
         }
     }
 }

@@ -13,7 +13,7 @@ struct HourlyForcastListItem: View {
         HStack(spacing: 15){
             Text(getHourName(from: hourlyForcast.time ?? ""))
                 .font(.system(size: 22, weight: .regular , design: .default ))
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
                 .frame(width: 70, alignment: .leading)
             Spacer(minLength: 0)
             AsyncImage(url: URL(string: "https:\(hourlyForcast.condition?.icon ?? "")"))
@@ -22,7 +22,7 @@ struct HourlyForcastListItem: View {
             Spacer(minLength: 10)
             Text("\(hourlyForcast.tempC ?? 0, specifier: "%.0f")°")
                 .font(.system(size: 22, weight: .regular , design: .default ))
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
             
         }
     }

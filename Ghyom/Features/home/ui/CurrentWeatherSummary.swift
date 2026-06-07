@@ -18,20 +18,20 @@ struct CurrentWeatherSummary: View {
             Text(cityName)
                 .font(.system(size: 40, weight: .regular , design: .default , ))
                 .tracking(3)
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
                
               
             Text("\(Int(currentTemperature))°")
                 .font(.system(size: 102,weight: .thin ,  design: .default))
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
             
             Text(weatherCondition)
                 .font(.system(size: 24, weight: .regular , design: .default))
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
             
             Text("H: \(Int(highTemperature))°      L: \(Int(lowTemperature))°")
                 .font(.system(size: 21, weight: .regular , design: .default))
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
         }.padding(.top , 80)
     }
 }

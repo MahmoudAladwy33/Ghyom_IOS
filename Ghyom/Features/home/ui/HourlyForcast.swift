@@ -15,7 +15,7 @@ struct HourlyForcast: View {
                 HStack{
                     Text("Hourly Forecast")
                         .font(.system(size: 18, weight: .bold , design: .default ))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.primary)
                     Spacer()
                 }.padding(.horizontal, 20)
                 
@@ -36,7 +36,7 @@ struct HourlyForcast: View {
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(.white.opacity(0.15), lineWidth: 1)
+                        .stroke(.primary.opacity(0.15), lineWidth: 1)
                 )
                
         }

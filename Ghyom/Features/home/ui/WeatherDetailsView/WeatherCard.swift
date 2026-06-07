@@ -26,7 +26,7 @@ struct WeatherCard<Content: View>: View {
                 Text(title)
             }
             .font(.system(size: 12, weight: .medium))
-            .foregroundColor(.white.opacity(0.5))
+            .foregroundColor(.primary.opacity(0.5))
             
             
             content
@@ -41,7 +41,7 @@ struct WeatherCard<Content: View>: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(.white.opacity(0.15), lineWidth: 1)
+                .stroke(.primary.opacity(0.15), lineWidth: 1)
         )
         .cornerRadius(16)
     }

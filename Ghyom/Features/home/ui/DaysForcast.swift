@@ -14,7 +14,7 @@ struct DaysForcast: View {
             HStack {
                 Text("10-Day Forecast")
                     .font(.system(size: 18, weight: .bold, design: .default))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                 
                 Spacer()
             }
@@ -35,7 +35,7 @@ struct DaysForcast: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(.white.opacity(0.15), lineWidth: 1)
+                .stroke(.primary.opacity(0.15), lineWidth: 1)
         )
         .padding(.horizontal, 8)
         .safeAreaPadding(.bottom, 80)
