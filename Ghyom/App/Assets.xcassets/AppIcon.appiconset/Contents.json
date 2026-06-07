@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "ghyom_icon_creative.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
